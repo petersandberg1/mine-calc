@@ -10,8 +10,8 @@ export function Input({
     <input
       {...props}
       className={clsx(
-        "w-full rounded-2xl border border-scania-border bg-white px-3 py-2 text-sm",
-        "focus:outline-none focus:ring-2 focus:ring-scania-accent/30",
+        "w-full rounded-2xl border border-ahs-border bg-white px-3 py-2 text-sm",
+        "focus:outline-none focus:ring-2 focus:ring-ahs-accent/30",
         className
       )}
     />

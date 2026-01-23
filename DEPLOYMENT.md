@@ -15,7 +15,7 @@ Vercel är det enklaste sättet att deploya Next.js-appar.
    git push -u origin main
    ```
 
-2. **Se till att Scania_logo.png finns i public-mappen**
+2. **Se till att AHS_logo.png finns i public-mappen**
 
 ### Steg 2: Deploya till Vercel
 

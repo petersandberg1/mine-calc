@@ -10,12 +10,12 @@ export function TopBar({
   onLogout?: (() => void) | undefined;
 }) {
   return (
-    <header className="border-b border-scania-border bg-scania-header">
+    <header className="border-b border-ahs-border bg-ahs-header">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl bg-scania-accent" />
+          <div className="h-9 w-9 rounded-xl bg-ahs-accent" />
           <div>
-            <div className="text-sm font-semibold text-white/80">Scania • Prototype</div>
+            <div className="text-sm font-semibold text-white/80">AHS • Prototype</div>
             <div className="text-lg font-semibold text-white">{title}</div>
           </div>
         </div>

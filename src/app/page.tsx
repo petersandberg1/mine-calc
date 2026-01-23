@@ -165,7 +165,7 @@ export default function Page() {
 
   if (view === "login") {
     return (
-      <div className="min-h-screen bg-scania-bg text-scania-ink">
+      <div className="min-h-screen bg-ahs-bg text-ahs-ink">
         <TopBar title="Pre-Sales Mining Calculator" onLogout={undefined} />
         <main className="mx-auto max-w-xl px-4 py-10">
           <Card title="Login (prototype)">
@@ -187,7 +187,7 @@ export default function Page() {
 
               <div className="flex items-center gap-3">
                 <Button onClick={onLogin}>Log in</Button>
-                <div className="text-sm text-scania-muted">
+                <div className="text-sm text-ahs-muted">
                   Demo: <span className="font-mono">user</span> / <span className="font-mono">password</span>
                 </div>
               </div>
@@ -199,19 +199,19 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-scania-bg text-scania-ink">
+    <div className="min-h-screen bg-ahs-bg text-ahs-ink">
       <TopBar title="Pre-Sales Mining Calculator" onLogout={onLogout} />
 
       <main className="mx-auto max-w-6xl px-4 py-8">
         {/* Total Tonnage Highlight */}
-        <div className="mb-6 rounded-2xl border-2 border-scania-accent bg-gradient-to-r from-scania-accent/10 to-scania-accent/5 p-6">
+        <div className="mb-6 rounded-2xl border-2 border-ahs-accent bg-gradient-to-r from-ahs-accent/10 to-ahs-accent/5 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-sm font-semibold text-scania-muted">Total Annual Tonnage</div>
-              <div className="mt-1 text-3xl font-bold text-scania-ink">
+              <div className="text-sm font-semibold text-ahs-muted">Total Annual Tonnage</div>
+              <div className="mt-1 text-3xl font-bold text-ahs-ink">
                 {new Intl.NumberFormat("sv-SE").format(input.materialKtonsPerYear * 1000)} tons
               </div>
-              <div className="mt-1 text-sm text-scania-muted">
+              <div className="mt-1 text-sm text-ahs-muted">
                 ({new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 1 }).format(input.materialKtonsPerYear)} ktons)
               </div>
             </div>
@@ -226,8 +226,8 @@ export default function Page() {
           >
             <div className="grid gap-6">
               {/* Mine/Quarry Section */}
-              <section className="grid gap-3 rounded-xl border border-scania-border bg-white/40 p-4">
-                <h3 className="text-base font-semibold tracking-wide text-scania-ink">Mine / Quarry</h3>
+              <section className="grid gap-3 rounded-xl border border-ahs-border bg-white/40 p-4">
+                <h3 className="text-base font-semibold tracking-wide text-ahs-ink">Mine / Quarry</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-2">
                     <Label>Material per year (kton)</Label>
@@ -292,8 +292,8 @@ export default function Page() {
               </section>
 
               {/* Vehicle Section */}
-              <section className="grid gap-3 rounded-xl border border-scania-border bg-white/40 p-4">
-                <h3 className="text-base font-semibold tracking-wide text-scania-ink">Vehicle</h3>
+              <section className="grid gap-3 rounded-xl border border-ahs-border bg-white/40 p-4">
+                <h3 className="text-base font-semibold tracking-wide text-ahs-ink">Vehicle</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-2">
                     <Label>Speed loaded (km/h)</Label>
@@ -349,8 +349,8 @@ export default function Page() {
               </section>
 
               {/* Financial Section */}
-              <section className="grid gap-3 rounded-xl border border-scania-border bg-white/40 p-4">
-                <h3 className="text-base font-semibold tracking-wide text-scania-ink">Financial</h3>
+              <section className="grid gap-3 rounded-xl border border-ahs-border bg-white/40 p-4">
+                <h3 className="text-base font-semibold tracking-wide text-ahs-ink">Financial</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-2">
                     <Label>Vehicle (EUR, each)</Label>
@@ -449,17 +449,17 @@ export default function Page() {
 
               {/* Saved Scenarios */}
               {savedScenarios.length > 0 && (
-                <div className="rounded-xl border border-scania-border bg-white/40 p-4">
-                  <h3 className="mb-3 text-sm font-semibold tracking-wide text-scania-ink">Saved Scenarios</h3>
+                <div className="rounded-xl border border-ahs-border bg-white/40 p-4">
+                  <h3 className="mb-3 text-sm font-semibold tracking-wide text-ahs-ink">Saved Scenarios</h3>
                   <div className="grid gap-2">
                     {savedScenarios.map((scenario) => (
                       <div
                         key={scenario.id}
-                        className="flex items-center justify-between rounded-lg border border-scania-border bg-white p-3"
+                        className="flex items-center justify-between rounded-lg border border-ahs-border bg-white p-3"
                       >
                         <div className="flex-1">
-                          <div className="font-medium text-scania-ink">{scenario.name}</div>
-                          <div className="text-xs text-scania-muted">
+                          <div className="font-medium text-ahs-ink">{scenario.name}</div>
+                          <div className="text-xs text-ahs-muted">
                             {new Date(scenario.updatedAt).toLocaleDateString()}
                           </div>
                         </div>
@@ -488,8 +488,8 @@ export default function Page() {
               {/* Save Modal */}
               {showSaveModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                  <div className="w-full max-w-md rounded-2xl border border-scania-border bg-white p-6 shadow-lg">
-                    <h3 className="mb-4 text-lg font-semibold text-scania-ink">Save Scenario</h3>
+                  <div className="w-full max-w-md rounded-2xl border border-ahs-border bg-white p-6 shadow-lg">
+                    <h3 className="mb-4 text-lg font-semibold text-ahs-ink">Save Scenario</h3>
                     <div className="mb-4">
                       <Label htmlFor="scenario-name">Scenario Name</Label>
                       <Input
@@ -516,8 +516,8 @@ export default function Page() {
                 </div>
               )}
 
-              <div className="rounded-2xl border border-scania-border bg-white/60 p-4 text-sm text-scania-muted">
-                <div className="font-semibold text-scania-ink">Hardcoded assumptions (V0)</div>
+              <div className="rounded-2xl border border-ahs-border bg-white/60 p-4 text-sm text-ahs-muted">
+                <div className="font-semibold text-ahs-ink">Hardcoded assumptions (V0)</div>
                 <ul className="mt-2 list-disc pl-5">
                   <li>Payload per load: 40 tons</li>
                   <li>Operation: 20 h/day, 2 shifts/day, 365 days/year</li>
@@ -531,11 +531,11 @@ export default function Page() {
 
           <Card title="Results" subtitle="Rough price indication level (prototype)">
             {!result || !summary ? (
-              <div className="text-sm text-scania-muted">Run the calculation to see results.</div>
+              <div className="text-sm text-ahs-muted">Run the calculation to see results.</div>
             ) : (
               <div className="grid gap-5">
-                <div className="grid gap-3 rounded-2xl border border-scania-border bg-white p-4">
-                  <div className="text-sm font-semibold text-scania-muted">Fleet sizing</div>
+                <div className="grid gap-3 rounded-2xl border border-ahs-border bg-white p-4">
+                  <div className="text-sm font-semibold text-ahs-muted">Fleet sizing</div>
                   <div className="grid gap-2 sm:grid-cols-2">
                     <Kpi label="Number of trucks" value={summary.fmtInt(result.trucksNeeded)} />
                     <Kpi label="Annual tonnage (tons)" value={summary.fmtInt(result.tonsPerYearTarget)} />
@@ -544,8 +544,8 @@ export default function Page() {
                   </div>
                 </div>
 
-                <div className="grid gap-3 rounded-2xl border border-scania-border bg-white p-4">
-                  <div className="text-sm font-semibold text-scania-muted">Cost</div>
+                <div className="grid gap-3 rounded-2xl border border-ahs-border bg-white p-4">
+                  <div className="text-sm font-semibold text-ahs-muted">Cost</div>
                   <div className="grid gap-2 sm:grid-cols-2">
                     <Kpi label="CAPEX (EUR)" value={summary.fmtEur(result.capexEur)} />
                     <Kpi label="OPEX/year (EUR)" value={summary.fmtEur(result.opexEurPerYear)} />
@@ -557,12 +557,12 @@ export default function Page() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-scania-border bg-white p-4">
-                  <div className="text-sm font-semibold text-scania-muted">Explain (breakdown)</div>
-                  <div className="mt-2 grid gap-1 text-sm text-scania-ink">
+                <div className="rounded-2xl border border-ahs-border bg-white p-4">
+                  <div className="text-sm font-semibold text-ahs-muted">Explain (breakdown)</div>
+                  <div className="mt-2 grid gap-1 text-sm text-ahs-ink">
                     {Object.entries(result.explain).map(([k, v]) => (
                       <div key={k} className="flex items-center justify-between gap-4">
-                        <div className="text-scania-muted">{k}</div>
+                        <div className="text-ahs-muted">{k}</div>
                         <div className="font-mono">{typeof v === "number" ? v.toFixed(4) : String(v)}</div>
                       </div>
                     ))}
@@ -578,7 +578,7 @@ export default function Page() {
                           await exportToPDF(result, input);
                         } catch (error) {
                           console.error("Failed to export PDF:", error);
-                          alert("Failed to export PDF. Please make sure Scania_logo.png is in the public folder.");
+                          alert("Failed to export PDF. Please make sure AHS_logo.png is in the public folder.");
                         } finally {
                           setIsLoading(false);
                         }
@@ -600,9 +600,9 @@ export default function Page() {
 
 function Kpi({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-scania-surface p-3">
-      <div className="text-xs font-semibold tracking-wide text-scania-muted">{label}</div>
-      <div className="mt-1 text-lg font-semibold text-scania-ink">{value}</div>
+    <div className="rounded-2xl bg-ahs-surface p-3">
+      <div className="text-xs font-semibold tracking-wide text-ahs-muted">{label}</div>
+      <div className="mt-1 text-lg font-semibold text-ahs-ink">{value}</div>
     </div>
   );
 }

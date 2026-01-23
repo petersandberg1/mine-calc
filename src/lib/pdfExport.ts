@@ -26,9 +26,9 @@ export async function exportToPDF(
   const fmtEur2 = (n: number) =>
     new Intl.NumberFormat("sv-SE", { style: "currency", currency: "EUR", maximumFractionDigits: 2 }).format(n);
 
-  // Load and add Scania logo
+  // Load and add AHS logo
   try {
-    const logoResponse = await fetch("/Scania_logo.png");
+    const logoResponse = await fetch("/AHS_logo.png");
     if (logoResponse.ok) {
       const logoBlob = await logoResponse.blob();
       const logoUrl = URL.createObjectURL(logoBlob);
@@ -46,7 +46,7 @@ export async function exportToPDF(
       URL.revokeObjectURL(logoUrl);
     }
   } catch (error) {
-    console.warn("Could not load Scania logo:", error);
+    console.warn("Could not load AHS logo:", error);
   }
 
   // Title
@@ -82,7 +82,7 @@ export async function exportToPDF(
       ["Cycle time (min)", result.cycleTimeMinutes.toFixed(2)],
     ],
     theme: "striped",
-    headStyles: { fillColor: [0, 102, 153] }, // Scania blue
+    headStyles: { fillColor: [0, 102, 153] }, // AHS blue
     styles: { fontSize: 10 },
     margin: { left: margin, right: margin },
   });

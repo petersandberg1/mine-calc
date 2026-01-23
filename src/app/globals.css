@@ -4,27 +4,27 @@
 @tailwind utilities;
 
 :root {
-  --scan-bg: 248 250 252;
-  --scan-surface: 243 246 250;
-  --scan-ink: 11 18 32;
-  --scan-muted: 76 90 110;
-  --scan-border: 224 231 238;
+  --ahs-bg: 248 250 252;
+  --ahs-surface: 243 246 250;
+  --ahs-ink: 11 18 32;
+  --ahs-muted: 76 90 110;
+  --ahs-border: 224 231 238;
 
-  /* "Scania-ish": deep blue + red accent */
-  --scan-header: 4 30 66;      /* #041E42 */
-  --scan-accent: 204 0 0;      /* #CC0000 */
+  /* AHS: deep blue + red accent */
+  --ahs-header: 4 30 66;      /* #041E42 */
+  --ahs-accent: 204 0 0;      /* #CC0000 */
 }
 
 body {
-  background: rgb(var(--scan-bg));
+  background: rgb(var(--ahs-bg));
 }
 
-.bg-scania-bg { background: rgb(var(--scan-bg)); }
-.bg-scania-surface { background: rgb(var(--scan-surface)); }
-.bg-scania-header { background: rgb(var(--scan-header)); }
-.bg-scania-accent { background: rgb(var(--scan-accent)); }
+.bg-ahs-bg { background: rgb(var(--ahs-bg)); }
+.bg-ahs-surface { background: rgb(var(--ahs-surface)); }
+.bg-ahs-header { background: rgb(var(--ahs-header)); }
+.bg-ahs-accent { background: rgb(var(--ahs-accent)); }
 
-.text-scania-ink { color: rgb(var(--scan-ink)); }
-.text-scania-muted { color: rgb(var(--scan-muted)); }
+.text-ahs-ink { color: rgb(var(--ahs-ink)); }
+.text-ahs-muted { color: rgb(var(--ahs-muted)); }
 
-.border-scania-border { border-color: rgb(var(--scan-border)); }
+.border-ahs-border { border-color: rgb(var(--ahs-border)); }

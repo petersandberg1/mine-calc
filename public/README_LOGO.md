@@ -1,5 +1,5 @@
-# Scania Logo
+# AHS Logo
 
-Place the Scania logo file here as `Scania_logo.png` for it to appear in the PDF exports.
+Place the AHS logo file here as `AHS_logo.png` for it to appear in the PDF exports.
 
-The logo should be placed in: `/public/Scania_logo.png`
+The logo should be placed in: `/public/AHS_logo.png`
