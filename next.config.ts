@@ -4,15 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   transpilePackages: ["jspdf-autotable"],
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    return config;
-  },
+  // Disable Turbopack to use webpack (if needed)
+  // experimental: {
+  //   turbo: false,
+  // },
 };
 
 export default nextConfig;
