@@ -33,11 +33,16 @@ npm i -g vercel
 vercel
 ```
 
-### Viktigt: Filbaserad lagring fungerar inte på serverless
+### Databas: Vercel KV
 
-Save/Load-funktionen kommer **INTE** fungera på Vercel eftersom filsystemet är read-only. För test kan du:
-- Använda appen utan save-funktionen
-- Eller se alternativ nedan för att fixa detta
+Appen använder nu **Vercel KV** (Redis) för databaslagring, vilket fungerar perfekt på Vercel!
+
+**Efter deployment:**
+1. Gå till ditt Vercel-projekt → **Storage**-fliken
+2. Skapa en **KV**-databas
+3. Miljövariablerna läggs automatiskt till
+
+Se `DATABASE_SETUP.md` för detaljerade instruktioner.
 
 ---
 

@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-
-const DATA_DIR = path.join(process.cwd(), "data", "scenarios");
+import { getScenario, saveScenario, deleteScenario } from "@/lib/kv";
 
 // GET: Load a specific scenario
 export async function GET(
@@ -11,10 +8,11 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const filePath = path.join(DATA_DIR, `${id}.json`);
+    const data = await getScenario(id);
 
-    const content = await fs.readFile(filePath, "utf-8");
-    const data = JSON.parse(content);
+    if (!data) {
+      return NextResponse.json({ error: "Scenario not found" }, { status: 404 });
+    }
 
     return NextResponse.json(data);
   } catch (error) {
@@ -33,11 +31,11 @@ export async function PUT(
     const body = await request.json();
     const { name, input } = body as { name?: string; input?: any };
 
-    const filePath = path.join(DATA_DIR, `${id}.json`);
-
-    // Read existing scenario
-    const existingContent = await fs.readFile(filePath, "utf-8");
-    const existingData = JSON.parse(existingContent);
+    // Get existing scenario
+    const existingData = await getScenario(id);
+    if (!existingData) {
+      return NextResponse.json({ error: "Scenario not found" }, { status: 404 });
+    }
 
     // Update fields
     const updatedData = {
@@ -47,7 +45,10 @@ export async function PUT(
       updatedAt: new Date().toISOString(),
     };
 
-    await fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), "utf-8");
+    const success = await saveScenario(updatedData);
+    if (!success) {
+      return NextResponse.json({ error: "Failed to update scenario" }, { status: 500 });
+    }
 
     return NextResponse.json(updatedData);
   } catch (error) {
@@ -63,9 +64,11 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const filePath = path.join(DATA_DIR, `${id}.json`);
+    const success = await deleteScenario(id);
 
-    await fs.unlink(filePath);
+    if (!success) {
+      return NextResponse.json({ error: "Failed to delete scenario" }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
