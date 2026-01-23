@@ -4,8 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   transpilePackages: ["jspdf-autotable"],
-  // Add empty turbopack config to silence the warning
-  turbopack: {},
+  // Use webpack instead of Turbopack for better compatibility
+  webpack: (config) => {
+    return config;
+  },
 };
 
 export default nextConfig;
