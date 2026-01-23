@@ -5,9 +5,9 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   transpilePackages: ["jspdf-autotable"],
   // Disable Turbopack to use webpack (if needed)
-  // experimental: {
-  //   turbo: false,
-  // },
+  experimental: {
+    turbo: false,
+  },
 };
 
 export default nextConfig;
