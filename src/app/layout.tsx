@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Pre-Sales Mining Calculator (Prototype)",
+  title: "Pre-Sales  Mining Calculator (Prototype)",
   description: "Prototype calculator for mining autonomy pre-sales",
 };
 
