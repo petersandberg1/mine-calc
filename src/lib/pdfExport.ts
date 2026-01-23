@@ -1,33 +1,15 @@
-import jsPDF from "jspdf";
+"use client";
+
+import { jsPDF } from "jspdf";
 import { type ScenarioResult, type ScenarioInput } from "./calc";
-
-// Import jspdf-autotable - this will only be used client-side
-// Using a type assertion to help TypeScript
-let autoTable: any;
-
-// Try to import at module level, but handle if it fails
-try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  autoTable = require("jspdf-autotable");
-} catch {
-  // Will be loaded dynamically if require fails
-}
 
 export async function exportToPDF(
   result: ScenarioResult,
   input: ScenarioInput,
   scenarioName?: string
 ) {
-  // Ensure autoTable is loaded
-  if (!autoTable) {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      autoTable = require("jspdf-autotable");
-    } catch {
-      const autoTableModule = await import("jspdf-autotable");
-      autoTable = (autoTableModule as any).default || autoTableModule;
-    }
-  }
+  // Dynamic import for jspdf-autotable v5 (client-side only)
+  const { autoTable } = await import("jspdf-autotable");
   
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();

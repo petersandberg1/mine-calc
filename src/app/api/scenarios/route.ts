@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 
     await fs.writeFile(filePath, JSON.stringify(scenarioData, null, 2), "utf-8");
 
-    return NextResponse.json({ id, ...scenarioData });
+    return NextResponse.json(scenarioData);
   } catch (error) {
     console.error("Error saving scenario:", error);
     return NextResponse.json({ error: "Failed to save scenario" }, { status: 500 });
