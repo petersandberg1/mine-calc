@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --scan-bg: 248 250 252;
+  --scan-surface: 243 246 250;
+  --scan-ink: 11 18 32;
+  --scan-muted: 76 90 110;
+  --scan-border: 224 231 238;
+
+  /* "Scania-ish": deep blue + red accent */
+  --scan-header: 4 30 66;      /* #041E42 */
+  --scan-accent: 204 0 0;      /* #CC0000 */
+}
+
+body {
+  background: rgb(var(--scan-bg));
+}
+
+.bg-scania-bg { background: rgb(var(--scan-bg)); }
+.bg-scania-surface { background: rgb(var(--scan-surface)); }
+.bg-scania-header { background: rgb(var(--scan-header)); }
+.bg-scania-accent { background: rgb(var(--scan-accent)); }
+
+.text-scania-ink { color: rgb(var(--scan-ink)); }
+.text-scania-muted { color: rgb(var(--scan-muted)); }
+
+.border-scania-border { border-color: rgb(var(--scan-border)); }
