@@ -34,14 +34,28 @@ export async function POST(request: NextRequest) {
       updatedAt: new Date().toISOString(),
     };
 
-    const success = await saveScenario(scenarioData);
-    if (!success) {
-      return NextResponse.json({ error: "Failed to save scenario" }, { status: 500 });
+    try {
+      const success = await saveScenario(scenarioData);
+      if (!success) {
+        return NextResponse.json(
+          { error: "Failed to save scenario. Check server logs for details." },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json(scenarioData);
+    } catch (error) {
+      console.error("Error saving scenario:", error);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to save scenario. Make sure Vercel KV is configured.";
+      return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
-
-    return NextResponse.json(scenarioData);
   } catch (error) {
-    console.error("Error saving scenario:", error);
-    return NextResponse.json({ error: "Failed to save scenario" }, { status: 500 });
+    console.error("Error in POST handler:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to save scenario" },
+      { status: 500 }
+    );
   }
 }
