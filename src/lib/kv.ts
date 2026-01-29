@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv";
+import Redis from "ioredis";
 import { type ScenarioInput } from "./calc";
 
 export type ScenarioData = {
@@ -12,20 +12,24 @@ export type ScenarioData = {
 const SCENARIOS_KEY = "scenarios";
 const SCENARIO_PREFIX = "scenario:";
 
-// Check if KV is configured
-function checkKVConfig() {
-  if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+// Init Redis-klient
+function createRedisClient() {
+  if (!process.env.REDIS_URL) {
     throw new Error(
-      "Vercel KV is not configured. Please create a KV database in your Vercel project and add the environment variables."
+      "Redis är inte konfigurerat. Sätt REDIS_URL i dina environment variables."
     );
   }
+
+  // ioredis samlar själv connection för återanvändning
+  return new Redis(process.env.REDIS_URL);
 }
+
+const redis = createRedisClient();
 
 // Get all scenario IDs
 export async function getAllScenarioIds(): Promise<string[]> {
   try {
-    checkKVConfig();
-    const ids = await kv.smembers(SCENARIOS_KEY);
+    const ids = await redis.smembers(SCENARIOS_KEY);
     return ids.map((id) => String(id));
   } catch (error) {
     console.error("Error getting scenario IDs:", error);
@@ -39,8 +43,10 @@ export async function getAllScenarioIds(): Promise<string[]> {
 // Get a single scenario
 export async function getScenario(id: string): Promise<ScenarioData | null> {
   try {
-    checkKVConfig();
-    const data = await kv.get<ScenarioData>(`${SCENARIO_PREFIX}${id}`);
+    const raw = await redis.get(`${SCENARIO_PREFIX}${id}`);
+    if (!raw) return null;
+
+    const data = JSON.parse(raw) as ScenarioData;
     return data;
   } catch (error) {
     console.error("Error getting scenario:", error);
@@ -54,18 +60,20 @@ export async function getScenario(id: string): Promise<ScenarioData | null> {
 // Save a scenario
 export async function saveScenario(scenario: ScenarioData): Promise<boolean> {
   try {
-    checkKVConfig();
-    // Save the scenario data
-    await kv.set(`${SCENARIO_PREFIX}${scenario.id}`, scenario);
-    // Add to the set of all scenario IDs
-    await kv.sadd(SCENARIOS_KEY, scenario.id);
+    const key = `${SCENARIO_PREFIX}${scenario.id}`;
+
+    // Spara scenariot som JSON
+    await redis.set(key, JSON.stringify(scenario));
+
+    // Lägg till i mängden med alla IDs
+    await redis.sadd(SCENARIOS_KEY, scenario.id);
+
     return true;
   } catch (error) {
     console.error("Error saving scenario:", error);
     if (error instanceof Error) {
       console.error("Error message:", error.message);
-      // Re-throw to get better error messages in API
-      throw error;
+      throw error; // som du gjorde tidigare
     }
     return false;
   }
@@ -74,11 +82,14 @@ export async function saveScenario(scenario: ScenarioData): Promise<boolean> {
 // Delete a scenario
 export async function deleteScenario(id: string): Promise<boolean> {
   try {
-    checkKVConfig();
-    // Remove from the set
-    await kv.srem(SCENARIOS_KEY, id);
-    // Delete the scenario data
-    await kv.del(`${SCENARIO_PREFIX}${id}`);
+    const key = `${SCENARIO_PREFIX}${id}`;
+
+    // Ta bort från setet
+    await redis.srem(SCENARIOS_KEY, id);
+
+    // Ta bort själva datat
+    await redis.del(key);
+
     return true;
   } catch (error) {
     console.error("Error deleting scenario:", error);
@@ -90,7 +101,9 @@ export async function deleteScenario(id: string): Promise<boolean> {
 }
 
 // Get all scenarios (list view)
-export async function getAllScenarios(): Promise<Array<{ id: string; name: string; createdAt: string; updatedAt: string }>> {
+export async function getAllScenarios(): Promise<
+  Array<{ id: string; name: string; createdAt: string; updatedAt: string }>
+> {
   try {
     const ids = await getAllScenarioIds();
     const scenarios = await Promise.all(
@@ -106,8 +119,10 @@ export async function getAllScenarios(): Promise<Array<{ id: string; name: strin
       })
     );
 
-    // Filter out nulls and sort by updatedAt
-    const validScenarios = scenarios.filter((s): s is NonNullable<typeof s> => s !== null);
+    const validScenarios = scenarios.filter(
+      (s): s is NonNullable<typeof s> => s !== null
+    );
+
     validScenarios.sort((a, b) => {
       const timeA = new Date(a.updatedAt || 0).getTime();
       const timeB = new Date(b.updatedAt || 0).getTime();
